@@ -70,8 +70,10 @@ RUN make install
 RUN ldconfig
 
 # Lets setup Python Now
-ENV GI_TYPELIB_PATH /usr/local/lib/girepository-1.0/
 ENV PYTHONPATH /usr/local/lib/python2.7/site-packages
+RUN cp /usr/local/lib/girepository-1.0/* /usr/lib/girepository-1.0/
+RUN cp /usr/local/lib/python2.7/site-packages/gi/overrides/Vips.py /usr/lib/python2.7/dist-packages/gi/overrides/Vips.py
+
 # Fetch PIP & Install it
 RUN curl -O https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
@@ -83,6 +85,7 @@ RUN pip install iron_mq
 RUN pip install iron_worker
 RUN pip install python-magic
 RUN pip install twisted
+RUN pip install logentries
 
 # Clean up, get rid of no longer needed packages, etc.
 WORKDIR /
