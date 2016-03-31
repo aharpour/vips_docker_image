@@ -1,4 +1,4 @@
-FROM ubuntu:15.04
+FROM phusion/baseimage:0.9.18
 MAINTAINER Rob "Bubba" Hines <rob@stechstudio.com>
 
 # Setup/Configure apt
@@ -17,7 +17,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
         ghostscript  \
         gobject-introspection \
         gtk-doc-tools  \
-        libcfitsio-dev  \
+        #libcfitsio-dev  \ for 15.04+
+        libcfitsio3-dev  \
         libexif-dev \
         libfftw3-dev  \
         libgirepository1.0-dev \
@@ -79,10 +80,8 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
 
 # Install those packages
-RUN pip install boto
+RUN pip install boto3
 RUN pip install ghostscript
-RUN pip install iron_mq
-RUN pip install iron_worker
 RUN pip install python-magic
 RUN pip install twisted
 RUN pip install logentries
